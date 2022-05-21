@@ -1,17 +1,38 @@
 .slider {
-  max-width: 1200px;
-  height: 400px;
-  margin: 0 auto;
-  display: flex;
-  overflow: hidden;
   position: relative;
+  margin: 0 auto;
+  width: 70vw;
+  height: 400px;
+  margin-bottom: 50px;
+  overflow: hidden;
 }
 
-.img {
+.slider__line {
+  height: 400px;
+  width: 70vw;
+  display: flex;
+  position: absolute;
+  right: 0vw;
+  transition: all 0.4s ease;
+}
+
+.slider__img {
   flex: 1 0 auto;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.slider__left {
+  width: 100px;
+  height: 100px;
+  background-color: #9e1717;
+}
+
+.slider__right {
+  width: 100px;
+  height: 100px;
+  background-color: #229e17;
 }
 
 /*# sourceMappingURL=style.css.map */

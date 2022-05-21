@@ -1,7 +1,6 @@
-// let slides = document.querySelectorAll('.img');
+let slides = document.querySelectorAll('.slider__img');
 // let slider = [];
 // let length = 0;
-
 // for (let i = 0; i < slides.length; i++) {
 //     slider[i] = slides[i].src;
 //     slides[i].remove();
@@ -23,43 +22,41 @@
 // let step = 0;
 
 
-// let btnLeft = document.querySelector('.button-left');
-// let btnRight = document.querySelector('.button-right');
-// let step2 = 0;
-// let position = 0;
-// let active = 0;
+let btnLeft = document.querySelector('.slider__left');
+let btnRight = document.querySelector('.slider__right');
+let step2 = 0;
+let position = 0;
+let active = 0;
 
-// function left() {
-//     let line = document.querySelector('.line');
-//     let div = line.cloneNode(true);
-//     console.log(div);
-//     active--;
-//     if (active === -1) {
-//         alert('меньше');
-//     }
-//     else {
-//         line.style.right = position - 300 + 'px';
-//         position -= 300;
-//     }
-// }
-// function right() {
-//     let line = document.querySelector('.line');
-//     // let last = document.querySelector('.last');
-//     let div = line.cloneNode(true);
-//     div.style.right = -1515 + "px";
-//     console.log(div);
-//     active++;
-
-//     if (active == slides.length) {
-//         line.append(div);
-//         active = -1;
-//     }
-//     else {
-//         line.style.right = position + 300 + 'px';
-//         position += 300;
-//     }
-
-// }
-
-// btnLeft.onclick = left;
-// btnRight.onclick = right;
+function left() {
+    let line = document.querySelector('.slider__line');
+    active--;
+    line.style.right = position - 70 + 'vw';
+    position -= 70;
+    if (active === -1) {
+        // alert('меньше');
+    }
+    // else {
+    // }
+}
+function right() {
+    let line = document.querySelector('.slider__line');
+    let clone
+    if (active == 3) {
+        slides.forEach(function(item) {
+            clone = item.cloneNode(true);
+            line.append(clone);
+        })
+        active = 0;
+        line.style.right = position + 70 + "vw";
+        position += 70;
+    }
+    else {
+        line.style.right = position + 70 + "vw";
+        active++;
+        position += 70;
+    }
+console.log(line);
+}
+btnLeft.onclick = left;
+btnRight.onclick = right;
