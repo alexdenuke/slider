@@ -39,6 +39,8 @@ function left() {
     // else {
     // }
 }
+
+
 function right() {
     let line = document.querySelector('.slider__line');
     let clone
@@ -50,6 +52,21 @@ function right() {
         active = 0;
         line.style.right = position + 70 + "vw";
         position += 70;
+
+        function clear() {
+            line.style.right = 0 + "vw";
+            position = 0;
+            line.style.cssText = "transition: all 0s ease;"
+            for (let i = 0; i < 4; i++) {
+                slides[i].remove();
+            }
+        }
+        setTimeout(clear, 1000);
+        function clear2() {
+            line.style.cssText = "transition: all 0.4s ease;"
+        }
+        setTimeout(clear2, 2000);
+        
     }
     else {
         line.style.right = position + 70 + "vw";
