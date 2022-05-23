@@ -1,79 +1,79 @@
 let slides = document.querySelectorAll('.slider__img');
-// let slider = [];
-// let length = 0;
-// for (let i = 0; i < slides.length; i++) {
-//     slider[i] = slides[i].src;
-//     slides[i].remove();
-// }
+let line = document.querySelector('.slider__line');
+let arr = [slides[0],slides[slides.length-1]];
 
-// function draw(){
-//     let img = document.createElement('img');
-//     img.src = slider[step];
-//     img.classList.add('img');
-//     document.querySelector('.line').appendChild(img);
-//     if ( step + 1 == slider.length) {
-//         step = 0;
-//     }
-//     else {
-//         step++;
-//     }
-// }
+arr.forEach(function(item,index){
+    let clone = item.cloneNode(true);
+    if (index == 0){
+        line.append(clone);
+    }
+    else{
+        line.prepend(clone);
+    }
 
-// let step = 0;
-
-
+})
+let size = "vw";
+let width = 70;
 let btnLeft = document.querySelector('.slider__left');
 let btnRight = document.querySelector('.slider__right');
-let step2 = 0;
-let position = 0;
+let position = width;
 let active = 0;
+
 
 function left() {
     let line = document.querySelector('.slider__line');
-    active--;
-    line.style.right = position - 70 + 'vw';
-    position -= 70;
-    if (active === -1) {
-        // alert('меньше');
+    if (active == 0) {
+        btnLeft.onclick = null;
+        btnRight.onclick = null;
+        active = slides.length - 1;
+        line.style.right = position - width + size;
+        position = slides.length * width;
+        function clear() {
+            line.style.transition = "all 0s ease ";
+            line.style.right = slides.length * width + size;
+            
+        }
+        setTimeout(clear, 500);
+        function clear2() {
+            line.style.transition = "all 0.4s ease ";
+            btnLeft.onclick = left;
+            btnRight.onclick = right;
+        }
+        setTimeout(clear2, 600);
     }
-    // else {
-    // }
+    else {
+        line.style.right = position - width + size;
+        active--;
+        position -= width;
+    }
 }
 
 
 function right() {
     let line = document.querySelector('.slider__line');
-    let clone
-    if (active == 3) {
-        slides.forEach(function(item) {
-            clone = item.cloneNode(true);
-            line.append(clone);
-        })
+    if (active == slides.length - 1) {
+        btnRight.onclick = null;
+        btnLeft.onclick = null;
         active = 0;
-        line.style.right = position + 70 + "vw";
-        position += 70;
-
+        line.style.right = position + width + size;
+        position = width;
         function clear() {
-            line.style.right = 0 + "vw";
-            position = 0;
-            line.style.cssText = "transition: all 0s ease;"
-            for (let i = 0; i < 4; i++) {
-                slides[i].remove();
-            }
+            line.style.transition = "all 0s ease";
+            line.style.right = width + size;
         }
-        setTimeout(clear, 1000);
+        setTimeout(clear, 500);
         function clear2() {
-            line.style.cssText = "transition: all 0.4s ease;"
+            line.style.transition = "all 0.4s ease";
+            btnRight.onclick = right;
+            btnLeft.onclick = left;
         }
-        setTimeout(clear2, 2000);
-        
+        setTimeout(clear2, 600);
     }
     else {
-        line.style.right = position + 70 + "vw";
+        line.style.right = position + width + size;
         active++;
-        position += 70;
+        position += width;
     }
-console.log(line);
 }
 btnLeft.onclick = left;
 btnRight.onclick = right;
