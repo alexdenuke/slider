@@ -23,16 +23,21 @@
   object-fit: cover;
 }
 
-.slider__left {
-  width: 100px;
-  height: 100px;
-  background-color: #9e1717;
+.button__right-img {
+  right: 0px;
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
 }
 
-.slider__right {
-  width: 100px;
-  height: 100px;
-  background-color: #229e17;
+.button__left-img {
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
 }
 
 /*# sourceMappingURL=style.css.map */
