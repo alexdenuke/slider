@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.slider__line {
+.slider__wrap-images {
   height: 300px;
   width: 70vw;
   display: flex;
@@ -23,7 +23,7 @@
   object-fit: cover;
 }
 
-.button__right-img {
+.slider__button-right {
   right: 0px;
   z-index: 100;
   position: absolute;
@@ -32,7 +32,7 @@
   width: 40px;
 }
 
-.button__left-img {
+.slider__button-left {
   z-index: 100;
   position: absolute;
   top: 50%;
