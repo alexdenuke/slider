@@ -1,3 +1,4 @@
+let slider = document.querySelector(".slider");
 let slides = document.querySelectorAll(".slider__img");
 let wrapSlides = document.querySelector(".slider__wrap-images");
 let btnLeft = document.querySelector(".slider__button-left");
@@ -7,8 +8,6 @@ let measurement = "vw"; // measurement - измерение
 let width = 70;
 let position = width;
 let activeSlide = 0;
-let stop = document.querySelector(".stop");
-let start = document.querySelector(".start");
 
 sideImages.forEach(function (item, index) {
   let clone = item.cloneNode(true);
@@ -33,12 +32,15 @@ function rightMove() {
     wrapSlides.style.right = position + width + measurement;
     position = width;
 
-    setTimeout(function () {
-      wrapSlides.style.transition = "all 0s ease";
-      wrapSlides.style.right = width + measurement;
-    }, 400);
-    setTimeout(returnStyles, 450);
-    timerId = setInterval(rightMove, 2500);
+    wrapSlides.addEventListener(
+      "transitionend",
+      function () {
+        wrapSlides.style.transition = "all 0s ease";
+        wrapSlides.style.right = width + measurement;
+        setTimeout(returnStyles, 0);
+      },
+      { once: true }
+    );
   } else {
     wrapSlides.style.right = position + width + measurement;
     activeSlide++;
@@ -56,11 +58,15 @@ function leftMove() {
     wrapSlides.style.right = position - width + measurement;
     position = slides.length * width;
 
-    setTimeout(function clear() {
-      wrapSlides.style.transition = "all 0s ease ";
-      wrapSlides.style.right = slides.length * width + measurement;
-    }, 400);
-    setTimeout(returnStyles, 450);
+    wrapSlides.addEventListener(
+      "transitionend",
+      function () {
+        wrapSlides.style.transition = "all 0s ease ";
+        wrapSlides.style.right = slides.length * width + measurement;
+        setTimeout(returnStyles, 0);
+      },
+      { once: true }
+    );
   } else {
     wrapSlides.style.right = position - width + measurement;
     activeSlide--;
@@ -72,4 +78,54 @@ function returnStyles() {
   wrapSlides.style.transition = "all 0.4s ease";
   btnRight.onclick = rightMove;
   btnLeft.onclick = leftMove;
+  timerId = setInterval(rightMove, 2500);
 }
+
+// slider.addEventListener('mousedown', function (e) {
+//   coordinateX = e.clientX - parseInt(style2.marginRight);
+//   coordinateY = e.clientY;
+//   e.preventDefault();
+//   // console.log('первые', coordinateX, coordinateY);
+//   addEventListener('mousemove', function (event) {
+//     coordinateX2 = event.clientX - parseInt(style2.marginRight);
+//     coordinateY2 = event.clientY;
+//     // console.log('вторые', coordinateX2, coordinateY2);
+//   })
+//   addEventListener('mouseup', function (eve) {
+//     // alert(coordinateX - coordinateX2);
+//     if (coordinateX - coordinateX2 > 50  ){
+//       rightMove();
+//     }
+//   },{once:true})
+// });
+// slider.addEventListener('mousedown', function (e) {
+//   coordinateX = e.clientX - parseInt(style2.marginRight);
+//   coordinateY = e.clientY;
+//   e.preventDefault();
+//   // console.log('первые', coordinateX, coordinateY);
+//   addEventListener('mousemove', function (event) {
+//     coordinateX2 = event.clientX - parseInt(style2.marginRight);
+//     coordinateY2 = event.clientY;
+//     // console.log('вторые', coordinateX2, coordinateY2);
+//   })
+//   addEventListener('mouseup', function (eve) {
+//     // alert(coordinateX - coordinateX2);
+//     if (coordinateX - coordinateX2 < 50  ){
+//       leftMove();
+//     }
+//   },{once:true})
+// });
+
+// let stop = document.querySelector(".stop");
+// let start = document.querySelector(".start");
+// let link = document.querySelector(".link");
+// let button = document.querySelector(".button");
+// button.addEventListener("pointerdown", function (event) {
+//   console.log("hi");
+// });
+
+// let style2 = getComputedStyle(slider);
+// let coordinateX = 0;
+// let coordinateY = 0;
+// let coordinateX2 = 0;
+// let coordinateY2 = 0;
