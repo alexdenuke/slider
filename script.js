@@ -4,10 +4,15 @@ let wrapSlides = document.querySelector(".slider__wrap-images");
 let btnLeft = document.querySelector(".slider__button-left");
 let btnRight = document.querySelector(".slider__button-right");
 let sideImages = [slides[0], slides[slides.length - 1]]; // боковые изображения
-let measurement = "vw"; // measurement - измерение
-let width = 70;
+let measurement = "px"; // measurement - измерение
+let width =  parseInt(getComputedStyle(slider).width);
 let position = width;
 let activeSlide = 0;
+
+function init() {
+  wrapSlides.style.right = width + "px"; 
+}
+init();
 
 sideImages.forEach(function (item, index) {
   let clone = item.cloneNode(true);
