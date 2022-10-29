@@ -4,19 +4,46 @@ let wrapSlides = document.querySelector(".slider__wrap-images");
 let btnLeft = document.querySelector(".slider__button-left");
 let btnRight = document.querySelector(".slider__button-right");
 let sideImages = [slides[0], slides[slides.length - 1]]; // боковые изображения
-let measurement = "vw"; // measurement - измерение
-let width = 70;
+let measurement = "px"; // measurement - измерение
+let width =  parseInt(getComputedStyle(slider).width);
 let position = width;
 let activeSlide = 0;
+
+
 
 sideImages.forEach(function (item, index) {
   let clone = item.cloneNode(true);
   if (index == 0) {
-    wrapSlides.append(clone);
+    slider.append(clone);
   } else {
-    wrapSlides.prepend(clone);
+    slider.prepend(clone);
   }
+
 });
+
+let slides2 = document.querySelectorAll(".slider__img");
+refresh();
+
+function refresh() {
+  slides2.forEach(item => {
+    item.style.transform = `translateX(-${width + position}px)`;
+    
+  })
+}
+
+function moveDown() {
+  slides2.forEach(item => {
+    item.style.transition = "all 0.4s ease";
+    item.style.transform = `translateX(${width + position}px)`;
+  })
+}
+
+function moveUp() {
+  slides2.forEach(item => {
+    item.style.transition = "all 0.4s ease";
+    item.style.transform = `translateX(-${width + position}px)`;
+  })
+}
 btnRight.onclick = rightMove;
 btnLeft.onclick = leftMove;
 
@@ -29,25 +56,31 @@ function rightMove() {
     btnRight.onclick = null;
     btnLeft.onclick = null;
     activeSlide = 0;
-    wrapSlides.style.right = position + width + measurement;
+    // slider.style.right = position + width + measurement;
     position = width;
 
-    wrapSlides.addEventListener(
+    slider.addEventListener(
       "transitionend",
       function () {
-        wrapSlides.style.transition = "all 0s ease";
-        wrapSlides.style.right = width + measurement;
+        slider.style.transition = "all 0s ease";
+        // slider.style.right = width + measurement;
+        slides2.forEach(item => {
+          item.style.transform = `translateX(${width + position}px)`;
+        })
         setTimeout(returnStyles, 0);
       },
       { once: true }
     );
-  } else {
-    wrapSlides.style.right = position + width + measurement;
-    activeSlide++;
-    position += width;
-    timerId = setInterval(rightMove, 2500);
   }
-}
+  else {
+    // slider.style.right = position + width + measurement;
+    moveUp();
+      activeSlide++;
+      position += width;
+      timerId = setInterval(rightMove, 2500);
+    }
+   }
+
 function leftMove() {
   clearInterval(timerId);
   timerId = "";
@@ -55,31 +88,53 @@ function leftMove() {
     btnLeft.onclick = null;
     btnRight.onclick = null;
     activeSlide = slides.length - 1;
-    wrapSlides.style.right = position - width + measurement;
+    // slider.style.right = position - width + measurement;
     position = slides.length * width;
 
-    wrapSlides.addEventListener(
+    slider.addEventListener(
       "transitionend",
       function () {
-        wrapSlides.style.transition = "all 0s ease ";
-        wrapSlides.style.right = slides.length * width + measurement;
+        slider.style.transition = "all 0s ease ";
+        slider.style.right = slides.length * width + measurement;
         setTimeout(returnStyles, 0);
       },
       { once: true }
     );
   } else {
-    wrapSlides.style.right = position - width + measurement;
+    // slider.style.right = position - width + measurement;
+    moveDown();
     activeSlide--;
     position -= width;
   }
 }
 
 function returnStyles() {
-  wrapSlides.style.transition = "all 0.4s ease";
+  slider.style.transition = "all 0.4s ease";
   btnRight.onclick = rightMove;
   btnLeft.onclick = leftMove;
   timerId = setInterval(rightMove, 2500);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // slider.addEventListener('mousedown', function (e) {
 //   coordinateX = e.clientX - parseInt(style2.marginRight);
